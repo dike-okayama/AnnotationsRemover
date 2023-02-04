@@ -1,0 +1,78 @@
+body {
+    background-color: darkgray;
+}
+
+.logo {
+    font-size: 4.5rem;
+    text-align: center;
+    color: dimgrey;
+}
+.caption {
+    font-size: 1.2rem;
+    text-align: center;
+    color: dimgrey;
+}
+
+.main-container {
+    height: 80%;
+}
+.left-container {
+    background-color: whitesmoke;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+.right-container {
+    background-color: whitesmoke;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.input-box {
+    font-family: "Source Code Pro", monospace;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 5%;
+    font-size: 1.1rem;
+    resize: none;
+    border-radius: 2px;
+}
+
+.input-box:focus {
+    outline: slategray solid 2px;
+    transition-timing-function: ease-in;
+    transition-duration: 100ms;
+    will-change: auto;
+}
+
+.output-box {
+    border-radius: 2px;
+    font-size: 1.1rem;
+    font-family: "Source Code Pro", monospace;
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 5%;
+    border: solid 1px;
+    resize: none;
+}
+
+.output-box:focus {
+    outline: none;
+}
+
+.box-name {
+    margin-left: 1rem;
+    font-size: 2rem;
+    color: dimgrey;
+}
+@media (min-width: 600px) {
+    .main-container {
+        display: flex;
+    }
+    .left-container {
+        flex-grow: 1;
+    }
+    .right-container {
+        flex-grow: 1;
+    }
+}

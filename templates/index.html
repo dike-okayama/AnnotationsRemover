@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Annotations Remover</title>
+        <link rel="stylesheet" href="./static/style.css" />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Source+Code+Pro"
+        />
+    </head>
+    <body>
+        <header>
+            <div class="logo">Annotations Remover</div>
+            <p class="caption">TypeHints remover for Python scripts</p>
+        </header>
+
+        <div class="main-container">
+            <div class="left-container">
+                <p class="box-name">Input (editable)</p>
+
+                <textarea class="input-box" rows="28" spellcheck="false">
+from __future__ import annotations
+from typing import Iterable, Any
+
+class MultiSet:
+
+    def __init__(self,
+                 n: int = 0,
+                 *,
+                 compress: Iterable[Any] = [],
+                 multi: bool = True) -> None:
+        self._multi: bool = multi
+        if compress:
+            self._inv_compress: list[Any] = sorted(set(compress))
+        else:
+            self._inv_compress: list[int] = list(range(n))
+        self._compress: dict[Any:int] = {k: v for v, k in enumerate(self._inv_compress)}
+        self._counter_all: int = 0
+        self._counter: list[int] = [0] * len(self._inv_compress)
+        self._bit: BIT = BIT(len(self._inv_compress))
+
+    ...
+
+</textarea
+                >
+            </div>
+            <div class="right-container">
+                <p class="box-name">Output</p>
+                <textarea
+                    readonly
+                    class="output-box lines-number"
+                    rows="28"
+                    spellcheck="false"
+                    data-type="note"
+                    data-lines="number"
+                >
+class MultiSet:
+
+    def __init__(self,
+                 n=0,
+                 *,
+                 compress = [],
+                 multi = True):
+        self._multi = multi
+        if compress:
+            self._inv_compress = sorted(set(compress))
+        else:
+            self._inv_compress = list(range(n))
+        self._compress = {k: v for v, k in enumerate(self._inv_compress)}
+        self._counter_all = 0
+        self._counter = [0] * len(self._inv_compress)
+        self._bit = BIT(len(self._inv_compress))
+
+    ...
+
+                </textarea>
+            </div>
+        </div>
+    </body>
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"
+    ></script>
+    <script
+        type="text/javascript"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"
+    ></script>
+    <script type="text/javascript" src="./static/script.js"></script>
+</html>
