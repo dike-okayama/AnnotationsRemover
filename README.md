@@ -4,10 +4,17 @@ TypeHints remover for Python scripts
 
 ## Overview
 
-![sample](static/sample_img.png)
+![sample](AnnotationsRemover/static/sample_img.png)
 
 ## Usage
 
 ```cmd
+pip install -r requirements.txt
+```
+
+## Run
+
+```cmd
+cd AnnotationsRemover
 python -m AnnotationsRemover
 ```

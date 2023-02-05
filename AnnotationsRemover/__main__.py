@@ -2,7 +2,7 @@
 
 from flask import Flask, render_template, request, jsonify
 
-from AnnotationRemover.src.typehint_remover import remove_typehint
+from AnnotationsRemover.src.typehint_remover import remove_typehint
 
 app = Flask(__name__)
 
@@ -23,4 +23,4 @@ def remove():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
