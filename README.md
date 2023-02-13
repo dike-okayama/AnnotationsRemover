@@ -15,6 +15,5 @@ pip install -r requirements.txt
 ## Run
 
 ```cmd
-cd AnnotationsRemover
 python -m AnnotationsRemover
 ```
