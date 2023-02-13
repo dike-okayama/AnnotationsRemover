@@ -1,8 +1,9 @@
+var socket = io();
+
+socket.on("text_update", function (json) {
+    $(".output-box").val(json.source);
+});
+
 $("textarea").on("input", function () {
-    $.ajax("/remove/", {
-        type: "post",
-        data: { source: $(".input-box").val() },
-    }).done(function (data) {
-        $(".output-box").val(data.source);
-    });
+    socket.emit("remove", { source: $(".input-box").val() });
 });

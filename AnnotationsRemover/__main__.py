@@ -1,26 +1,28 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, render_template, request, jsonify
+from typing import Any
 
-from AnnotationsRemover.src.typehint_remover import remove_typehint
+from flask import Flask, render_template
+from flask_socketio import SocketIO, emit
 
-app = Flask(__name__)
+from AnnotationsRemover.src.remove_annotations import remove_annotations
+
+app: Flask = Flask(__name__)
+app.config["SECRET_KEY"] = "secret!!"
+
+sio: SocketIO = SocketIO(app, cors_allowed_origins="*")
 
 
 @app.route("/")
-def root():
+def index() -> str:
     return render_template("index.html")
 
 
-@app.route("/remove/", methods=["POST"])
-def remove():
-    source = request.form.get("source")
-
-    try:
-        return jsonify(dict(source=remove_typehint(source)))
-    except:
-        return jsonify(dict(source="..."))
+@sio.on("remove")
+def remove(json) -> None:
+    source: dict[str:Any] = json.get("source")
+    emit("text_update", {"source": remove_annotations(source)}, broadcast=False)
 
 
 if __name__ == "__main__":
-    app.run()
+    sio.run(app)

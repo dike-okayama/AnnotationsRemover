@@ -13,7 +13,7 @@ class Printer(cst.CSTVisitor):
     )
     pos_annotations: list[(int, int, int, int)] = []
 
-    def __init__(self, pos_annotations: list[(int, int, int, int)]):
+    def __init__(self, pos_annotations: list[(int, int, int, int)]) -> None:
         self.pos_annotations = pos_annotations
 
     def visit_Annotation(self, node: "Annotation") -> Optional[bool]:
@@ -28,16 +28,19 @@ class Printer(cst.CSTVisitor):
         )
 
 
-def remove_typehint(source):
+def remove_annotations(source: str, safe: bool = True) -> str:
+    try:
+        tree = cst.parse_module(source)
+    except:
+        return "..."
 
-    tree = cst.parse_module(source)
     wrapper = cst.metadata.MetadataWrapper(tree)
     pos_annotations: list[(int, int, int, int)] = []
     result = wrapper.visit(Printer(pos_annotations))
 
     def print_no_annotation(
         pos_annotations: list[(int, int, int, int)], line_no: int, line: int
-    ):
+    ) -> str:
         skip = False
         print_line = line + "\n"
         for item in reversed(pos_annotations):
