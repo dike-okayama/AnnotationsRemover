@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Annotations Remover</title>
-        <link rel="stylesheet" href="./static/style.css" />
+        <link rel="stylesheet" href="../static/style.css" />
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Source+Code+Pro"
@@ -12,70 +12,182 @@
     </head>
     <body>
         <header>
-            <div class="logo">Annotations Remover</div>
-            <p class="caption">TypeHints remover for Python scripts</p>
+            <nobr>LOGO</nobr>
+            <a class="logo" href=".">Annotations Remover</a>
+            <nobr class="caption">TypeHints remover for Python scripts</nobr>
         </header>
 
-        <div class="main-container">
-            <div class="left-container">
-                <p class="box-name">Input (editable)</p>
-
-                <textarea class="input-box" rows="28" spellcheck="false">
-from __future__ import annotations
-from typing import Iterable, Any
-
-class MultiSet:
-
-    def __init__(self,
-                 n: int = 0,
-                 *,
-                 compress: Iterable[Any] = [],
-                 multi: bool = True) -> None:
-        self._multi: bool = multi
-        if compress:
-            self._inv_compress: list[Any] = sorted(set(compress))
-        else:
-            self._inv_compress: list[int] = list(range(n))
-        self._compress: dict[Any:int] = {k: v for v, k in enumerate(self._inv_compress)}
-        self._counter_all: int = 0
-        self._counter: list[int] = [0] * len(self._inv_compress)
-        self._bit: BIT = BIT(len(self._inv_compress))
-
-    ...
-
-</textarea
+        <div class="card-container">
+            <div class="text-remover-card card">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="icon icon-tabler icon-tabler-prompt"
+                    width="40"
+                    height="40"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
                 >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M5 7l5 5l-5 5"></path>
+                    <path d="M13 17l6 0"></path>
+                </svg>
+                Script
             </div>
-            <div class="right-container">
-                <p class="box-name">Output</p>
-                <textarea
-                    readonly
-                    class="output-box lines-number"
-                    rows="28"
-                    spellcheck="false"
-                    data-type="note"
-                    data-lines="number"
+            <div class="file-remover-card card">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="icon icon-tabler icon-tabler-file-code"
+                    width="40"
+                    height="40"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
                 >
-class MultiSet:
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+                    <path
+                        d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"
+                    ></path>
+                    <path d="M10 13l-1 2l1 2"></path>
+                    <path d="M14 13l1 2l-1 2"></path>
+                </svg>
+                Files
+            </div>
+        </div>
 
-    def __init__(self,
-                 n=0,
-                 *,
-                 compress = [],
-                 multi = True):
-        self._multi = multi
-        if compress:
-            self._inv_compress = sorted(set(compress))
-        else:
-            self._inv_compress = list(range(n))
-        self._compress = {k: v for v, k in enumerate(self._inv_compress)}
-        self._counter_all = 0
-        self._counter = [0] * len(self._inv_compress)
-        self._bit = BIT(len(self._inv_compress))
+        <div class="script-mode-container">
+            <div class="main-header">
+                <div class="left-header">
+                    <p class="box-name">Input (editable)</p>
+                </div>
+                <div class="right-header">
+                    <p class="box-name">Output</p>
+                </div>
+            </div>
+            <div class="main-container">
+                <div class="left-container">
+                    <div class="input-container">
+                        <div class="left-indices"></div>
+                        <textarea
+                            class="input-box"
+                            rows="13"
+                            spellcheck="false"
+                            placeholder="Type your annotated code."
+                            class="left-textarea"
+                        ></textarea>
+                        <div class="left-buttons">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                class="clear-button input-button"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    clip-rule="evenodd"
+                                    fill="currentColor"
+                                    d="M17 6.00005C17.3905 5.60952 18.0237 5.60952 18.4142 6.00005C18.8047 6.39057 18.8047 7.02374 18.4142 7.41426L13.6213 12.2071L18.4142 17C18.8048 17.3906 18.8048 18.0237 18.4142 18.4143C18.0237 18.8048 17.3905 18.8048 17 18.4143L12.2071 13.6213L7.4142 18.4143C7.02367 18.8048 6.39051 18.8048 5.99999 18.4143C5.60946 18.0237 5.60946 17.3906 5.99999 17L10.7929 12.2071L6.00002 7.41426C5.6095 7.02374 5.6095 6.39057 6.00002 6.00005C6.39055 5.60952 7.02371 5.60952 7.41424 6.00005L12.2071 10.7929L17 6.00005Z"
+                                    vector-effect="non-scaling-stroke"
+                                ></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
 
-    ...
+                <div class="right-container">
+                    <div class="output-container">
+                        <div class="right-indices"></div>
+                        <textarea
+                            class="output-box"
+                            rows="13"
+                            spellcheck="false"
+                            class="right-textarea"
+                        ></textarea>
+                    </div>
+                    <div class="right-container-footer">
+                        <ul>
+                            <li>
+                                <a class="button">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        aria-hidden="true"
+                                        class="copy-button output-button"
+                                    >
+                                        <path
+                                            d="M8.75 16.25H6.875C5.83947 16.25 5 15.1867 5 13.875V4.375C5 3.06332 5.83947 2 6.875 2H14.375C15.4105 2 16.25 3.06332 16.25 4.375V6.75M10.625 21H18.125C19.1605 21 20 19.9367 20 18.625V9.125C20 7.81332 19.1605 6.75 18.125 6.75H10.625C9.58947 6.75 8.75 7.81332 8.75 9.125V18.625C8.75 19.9367 9.58947 21 10.625 21Z"
+                                            stroke="currentColor"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        ></path>
+                                    </svg>
+                                    <span class="button-caption"
+                                        >Copy to clipboard</span
+                                    >
+                                </a>
+                            </li>
+                            <li>
+                                <a class="button">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        aria-hidden="true"
+                                        class="share-button output-button"
+                                    >
+                                        <path
+                                            d="M8.68387 13.3419C8.88616 12.9381 9 12.4824 9 12C9 11.5176 8.88616 11.0619 8.68387 10.6581M8.68387 13.3419C8.19134 14.3251 7.17449 15 6 15C4.34315 15 3 13.6569 3 12C3 10.3431 4.34315 9 6 9C7.17449 9 8.19134 9.67492 8.68387 10.6581M8.68387 13.3419L15.3161 16.6581M8.68387 10.6581L15.3161 7.34193M15.3161 7.34193C15.8087 8.32508 16.8255 9 18 9C19.6569 9 21 7.65685 21 6C21 4.34315 19.6569 3 18 3C16.3431 3 15 4.34315 15 6C15 6.48237 15.1138 6.93815 15.3161 7.34193ZM15.3161 16.6581C15.1138 17.0619 15 17.5176 15 18C15 19.6569 16.3431 21 18 21C19.6569 21 21 19.6569 21 18C21 16.3431 19.6569 15 18 15C16.8255 15 15.8087 15.6749 15.3161 16.6581Z"
+                                            stroke="currentColor"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        ></path>
+                                    </svg>
+                                    <span class="button-caption"
+                                        >Share script</span
+                                    >
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                </textarea>
+        <div class="file-mode-container">
+            <div class="left-split-container">
+                <img src="../static/PY.ico" class="file-icon" />
+                <p class="file-drop-caption">Drag your Python(.py) file here</p>
+                <p class="file-drop-caption-mini">or</p>
+                <label>
+                    <div class="file-input-button">
+                        Select from your computer
+                    </div>
+                    <input type="file" class="file-input-body" />
+                </label>
+            </div>
+            <div class="right-split-container">
+                <div class="downloaded-wrapper">
+                    <p class="file-drop-caption">
+                        Unannotated python file downloaded
+                    </p>
+                    <img src="../static/PY.ico" class="file-icon" />
+                    <p class="file-drop-caption-mini downloaded-file">
+                        unannotated&lt;input&gt;.py
+                    </p>
+                    <a download class="download-button" id="download-button"
+                        >Download again</a
+                    >
+                </div>
             </div>
         </div>
     </body>
@@ -92,5 +204,5 @@ class MultiSet:
         type="text/javascript"
         src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"
     ></script>
-    <script type="text/javascript" src="./static/script.js"></script>
+    <script type="text/javascript" src="../static/script.js"></script>
 </html>
