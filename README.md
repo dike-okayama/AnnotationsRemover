@@ -4,7 +4,7 @@ TypeHints remover for Python scripts
 
 ## Overview
 
-![sample](AnnotationsRemover/static/sample_img.png)
+![sample](AnnotationsRemover/static/overview.jpg)
 
 ## Usage
 

@@ -65,8 +65,7 @@ $(".clear-button").on("click", function () {
         $(".output-button").css("display", "none");
     }, 500);
 });
-// '<span class="button-caption copy-button-caption">Copied!</span>'
-// '<span class="button-caption copy-button-caption">Copy to clipboard</span>'
+
 $(".copy-button").on("click", function () {
     navigator.clipboard.writeText($(".output-box").val());
     $(".copy-button-caption").html("Copied!");
