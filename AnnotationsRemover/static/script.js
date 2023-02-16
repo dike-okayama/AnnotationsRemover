@@ -1,5 +1,5 @@
-var socket = io();
-var lastExecution = null;
+const socket = io();
+let lastExecution = null;
 
 function countLn(source) {
     let match = source.match(/\n/g);
@@ -19,7 +19,9 @@ function makeIndices(n) {
 }
 
 socket.on("text_update", function (json) {
-    $(".output-box").val(json.source);
+    if (json.source != "...") {
+        $(".output-box").val(json.source);
+    }
     if ($(".output-box").val() == "") {
         $(".right-indices").html("");
         $(".output-button").css("display", "none");
@@ -32,6 +34,7 @@ socket.on("text_update", function (json) {
 });
 
 $("textarea").on("input", function () {
+    show_loading();
     if ($(".input-box").val() == "") {
         $(".left-indices").html("");
         $(".input-button").css("display", "none");
@@ -45,7 +48,10 @@ $("textarea").on("input", function () {
         window.clearTimeout(lastExecution);
     }
     lastExecution = window.setTimeout(function () {
-        socket.emit("remove", { source: $(".input-box").val() });
+        socket.emit("remove", {
+            source: $(".input-box").val(),
+        });
+        hide_loading();
     }, 500);
 });
 
@@ -59,10 +65,19 @@ $(".clear-button").on("click", function () {
         $(".output-button").css("display", "none");
     }, 500);
 });
-
+// '<span class="button-caption copy-button-caption">Copied!</span>'
+// '<span class="button-caption copy-button-caption">Copy to clipboard</span>'
 $(".copy-button").on("click", function () {
     navigator.clipboard.writeText($(".output-box").val());
-    $(".");
+    $(".copy-button-caption").html("Copied!");
+    $(this).trigger("mouseenter");
+    setTimeout(function () {
+        $(".copy-button-caption").html("Copy to clipboard");
+    }, 1000);
+});
+
+$(".share-button").on("click", async function () {
+    await navigator.share($(".output-box").val());
 });
 
 $(".text-remover-card").on("click", function () {
@@ -86,15 +101,26 @@ $(".file-remover-card").on("click", function () {
 });
 
 let dropbox = $(".left-split-container");
-dropbox.on("dragenter", function (e) {
+$("body").on("dragenter", function (e) {
     e.stopPropagation();
     e.preventDefault();
-    $("left-split-container").css("border", "dotted 1rem black");
+    $(".left-split-container").css("border", "dotted 0.3rem darkgrey");
+    $(".on-hover").css("display", "inline");
+    $(".not-on-hover").css("display", "none");
 });
+
 dropbox.on("dragover", function (e) {
+    $(".left-split-container").css("background-color", "rgb(200, 200, 200)");
     e.stopPropagation();
     e.preventDefault();
 });
+
+dropbox.on("dragleave", function (e) {
+    $(".left-split-container").css("background-color", "whitesmoke");
+    e.stopPropagation();
+    e.preventDefault();
+});
+
 dropbox.on("drop", function (e) {
     e.stopPropagation();
     e.preventDefault();
@@ -103,11 +129,15 @@ dropbox.on("drop", function (e) {
     const file = dt.files[0];
 
     afterFileUploaded(file);
+    $(".left-split-container").css("background-color", "whitesmoke");
+    $(".left-split-container").css("border", "");
+    $(".on-hover").css("display", "none");
+    $(".not-on-hover").css("display", "inline");
 });
 
 function afterFileUploaded(file) {
     const name = file.name;
-    let reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsText(file, "UTF-8");
     reader.onload = function (e) {
         const content = e.target.result;
@@ -118,7 +148,7 @@ function afterFileUploaded(file) {
             const fileName = "unannotated_" + name;
             const content = d.source;
             const a = $(".download-button");
-            let blob = new Blob([content], { type: "text/plain" });
+            const blob = new Blob([content], { type: "text/plain" });
             const url = URL.createObjectURL(blob);
 
             $(".downloaded-file").text(fileName);
@@ -130,8 +160,20 @@ function afterFileUploaded(file) {
     };
 }
 $(".file-input-body").on("change", function () {
-    console.log("uploaded");
+    afterFileUploaded(this.files[0]);
 });
+
+function show_loading() {
+    if ($("#loader").length === 0) {
+        $(".output-container").append('<div id="loader"></div>');
+    }
+}
+
+function hide_loading() {
+    $("#loader").fadeOut(400, "swing", () => {
+        $("#loader").remove();
+    });
+}
 
 $(".input-box").focus();
 $(".text-remover-card").click();

@@ -10,10 +10,14 @@ li {
     display: inline;
 }
 
+header {
+    margin-left: max(5%, 50% - 700px);
+    margin-right: max(5%, 50% - 700px);
+}
+
 .logo {
     text-decoration: none;
-    margin-left: 1rem;
-    font-size: 2rem;
+    font-size: 2.3rem;
     text-align: left;
     color: rgb(34, 33, 33);
 }
@@ -26,13 +30,12 @@ li {
 }
 
 .card-container {
-    margin-top: 3%;
+    margin-top: 2%;
     display: flex;
     align-items: top;
     justify-content: left;
-    max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: max(5%, 50% - 700px);
+    margin-right: max(5%, 50% - 700px);
 }
 
 .text-remover-card,
@@ -64,8 +67,8 @@ li {
     border-radius: 10px;
     margin-top: 1rem;
     box-shadow: 0 0 8px gray;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: max(5%, 50% - 700px);
+    margin-right: max(5%, 50% - 700px);
     max-width: 1400px;
 }
 
@@ -264,9 +267,8 @@ li {
 
 .file-mode-container {
     margin-top: 1rem;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 1400px;
+    margin-left: max(5%, 50% - 700px);
+    margin-right: max(5%, 50% - 700px);
     display: flex;
     align-items: top;
     justify-content: center;
@@ -275,9 +277,8 @@ li {
 .left-split-container,
 .right-split-container {
     background-color: whitesmoke;
-    box-shadow: 0 0 8px gray;
+    box-shadow: 0 0 8px grey;
     width: 50%;
-    border: solid 1px silver;
     border-radius: 10px;
     text-align: center;
     display: flex;
@@ -332,6 +333,46 @@ li {
 .download-button {
     font-weight: bold;
     cursor: pointer;
+    text-decoration: none;
+    color: rgb(34, 33, 33);
+}
+
+.on-hover {
+    display: none;
+}
+
+.cloud-icon {
+    width: 5rem;
+    height: 5rem;
+}
+
+#loader {
+    background: transparent;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    position: absolute;
+    z-index: 99999;
+}
+
+#loader::after {
+    animation: loader_animation 1s linear infinite;
+    border: 5px solid white;
+    border-right: 5px solid whitesmoke;
+    border-radius: 100%;
+    content: "";
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-top: 1rem;
+}
+
+@keyframes loader_animation {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @media (min-width: 600px) {
