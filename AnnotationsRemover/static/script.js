@@ -33,7 +33,7 @@ socket.on("text_update", function (json) {
     }
 });
 
-$("textarea").on("input", function () {
+$(".left-textarea").on("input", function () {
     show_loading();
     if ($(".input-box").val() == "") {
         $(".left-indices").html("");
